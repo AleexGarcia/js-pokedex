@@ -1,7 +1,7 @@
 import { PokemonReposity } from "../repository/PokemonReposity.js";
 import { PokemonService } from "../service/PokemonService.js";
 import { PokemonView } from "../view/pokemonView.js";
-import {DetailsPokemonView } from "../view/DetailsPokemonView.js"
+import { DetailsPokemonView } from "../view/DetailsPokemonView.js";
 
 export class PokemonController {
   elementPokemonList;
@@ -22,7 +22,9 @@ export class PokemonController {
       this.elementPokemonList = listElement;
       this.elementPokemonDetails = moreDetailsElement;
       this.pokemonView = new PokemonView(this.elementPokemonList);
-      this.detailsPokemonView = new DetailsPokemonView(this.elementPokemonDetails);
+      this.detailsPokemonView = new DetailsPokemonView(
+        this.elementPokemonDetails
+      );
     } else {
       throw Error(`Seletor ${selector} não existe no DOM`);
     }
@@ -90,13 +92,33 @@ export class PokemonController {
     }
   }
 
-  openPokemonMoreDetails(id){
-    this.elementPokemonDetails.dataset.state = 'open';
+  openPokemonMoreDetails(id) {
+    this.elementPokemonDetails.dataset.state = "open";
     const pokemon = this.pokemonReposity.getPokemon(id);
     this.detailsPokemonView.view(pokemon);
+    const closeButton = document.querySelector("#DetailsButtonClose");
+    const detailsNavBar = document.querySelector("#DetailsNavigation");
+    const contentsElement = {
+      about: document.querySelector(".about"),
+      stats: document.querySelector(".stats"),
+      moves: document.querySelector(".moves"),
+    };
+
+    closeButton.addEventListener("click", () => this.closePokemonMoreDetails());
+    detailsNavBar.childNodes.forEach((li) =>
+      li.addEventListener("click", (e) =>
+        this.toggleDetailsContent(e.target.dataset.ref, contentsElement)
+      )
+    );
+  }
+  
+  closePokemonMoreDetails() {
+    this.elementPokemonDetails.dataset.state = "close";
   }
 
-  closePokemonMoreDetails(){
-    this.elementPokemonDetails.dataset.state = 'close';
+  toggleDetailsContent(ref, contentsElement) {
+    for (const key in contentsElement) {
+      contentsElement[key].dataset.state = key === ref ? "open" : "close";
+    }
   }
 }

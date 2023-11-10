@@ -34,35 +34,11 @@
       <h1>Pokedex</h1>
 
       <ol class="pokemons" id="pokemonList"></ol>
-      <div>
-        <button id="LoadMore">more...</button>
+      <div class="control">
+        <button class="loadMore" id="LoadMore">...</button>
       </div>
     </section>
-    <section class="details" id="moreDetails" data-state="open">
-      <div class="details__container">
-        <div class="details__top">
-          <div class="details__controls">
-            <button>Voltar</button>
-          </div>
-          <div class="details__header">
-            <h2>Nome</h2>
-            <ul>
-              <li>type</li>
-              <li>type</li>
-            </ul>
-            <span>Id</span>
-          </div>
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg" alt="">
-        </div>
-        <div class="details__bottom">
-          <ul class="details__navigation">
-            <li>About</li>
-            <li>Base Stats</li>
-            <li>Moves</li>
-          </ul>
-          <div class="details__content"></div>
-        </div>
-      </div>
+    <section class="details" id="moreDetails" data-state="close">
     </section>
 
     <!-- Nosso JS -->
